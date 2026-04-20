@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Regreso de la Carrera Espacial | Era Privada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --space-black: #050505;
+            --space-white: #f8f9fa;
+            --accent-blue: #007aff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--space-black);
+            color: var(--space-white);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-blue);
+            background: rgba(0, 122, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at center, #111 0%, #050505 100%);
+        }
+
+        .page-transition {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-btn:hover::after {
+            width: 100%;
+        }
+
+        .img-zoom {
+            transition: transform 1.5s ease;
+        }
+
+        .glass-card:hover .img-zoom {
+            transform: scale(1.1);
+        }
+
+        /* Ocultar secciones por defecto */
+        .page-content { display: none; }
+        .page-content.active { display: block; }
+
+        .purple-glow {
+            color: #d8b4fe;
+            text-shadow: 0 0 18px rgba(168, 85, 247, 0.35);
+        }
+
+        .purple-card {
+            background: linear-gradient(135deg, rgba(88, 28, 135, 0.18), rgba(30, 27, 75, 0.18));
+            border: 1px solid rgba(192, 132, 252, 0.22);
+            backdrop-filter: blur(12px);
+            transition: all 0.4s ease;
+        }
+
+        .purple-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(168, 85, 247, 0.18);
+            border-color: rgba(216, 180, 254, 0.45);
+        }
+
+        .intro-fragment {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid #a855f7;
+            border-radius: 18px;
+            padding: 1.25rem;
+        }
+
+        .author-frame {
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(168,85,247,0.08));
+            border: 1px solid rgba(216, 180, 254, 0.2);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+        }
+
+        .author-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .mini-purple-box {
+            background: linear-gradient(145deg, rgba(52, 19, 78, 0.75), rgba(33, 17, 58, 0.72));
+            border: 1px solid rgba(192, 132, 252, 0.16);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.28);
+            transition: all 0.35s ease;
+        }
+
+        .mini-purple-box:hover {
+            transform: translateY(-4px);
+            border-color: rgba(216, 180, 254, 0.35);
+            box-shadow: 0 14px 30px rgba(88, 28, 135, 0.22);
+        }
+    </style>
+</head>
+<body class="hero-gradient min-h-screen">
+
+    <!-- Navegación -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center glass-card border-none bg-opacity-80">
+        <div class="nav-logo text-xl font-bold tracking-taller cursor-pointer" onclick="showPage('home')">
+            UES<span class="text-red-500">SPACE</span>Agency
+        </div>
+        <div id="back-home-btn" class="hidden">
+            <button onclick="showPage('home')" class="nav-btn px-4 py-2 text-sm font-medium uppercase tracking-widest flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg> Volver al Inicio
+            </button>
+        </div>
+    </nav>
+
+    <!-- PÁGINA DE INICIO (MENÚ VISUAL) -->
+    <main id="page-home" class="page-content active pt-24 pb-12 px-6">
+        <header class="max-w-6xl mx-auto text-center mb-16 page-transition">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6">El Regreso de la Carrera Espacial</h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto font-light">Una nueva era donde las corporaciones y las agencias gubernamentales convergen para alcanzar las estrellas.</p>
+        </header>
+ <section class="max-w-7xl mx-auto mb-14 page-transition">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        
+        <!-- Texto principal -->
+        <div class="purple-card rounded-3xl p-8">
+            <p class="text-purple-300 text-xs uppercase tracking-[0.25em] mb-3">Finalidad del sitio</p>
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-5 purple-glow">
+                Una ruta para comprender la nueva era espacial
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-6">
+                Este sitio busca presentar de forma visual y crítica cómo ha cambiado la carrera espacial en el siglo XXI.
+                Aquí no solo se revisa el regreso de la exploración lunar, sino también el papel creciente de las empresas privadas,
+                las nuevas oportunidades económicas del espacio y los dilemas éticos que surgen cuando el cosmos empieza a verse como mercado.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                <div class="intro-fragment">
+                    <h3 class="text-white font-bold mb-2">¿Qué encontrarás aquí?</h3>
+                    <p class="text-sm text-gray-400">
+                        Una lectura visual sobre cambios históricos, actores privados, Artemis II, economía espacial y riesgos del futuro.
+                    </p>
+                </div>
+                <div class="intro-fragment">
+                    <h3 class="text-white font-bold mb-2">¿Qué pretende mostrar?</h3>
+                    <p class="text-sm text-gray-400">
+                        Que la exploración espacial ya no se mueve solo por ciencia o prestigio nacional, sino también por intereses estratégicos y comerciales.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna derecha: foto + cuadritos -->
+        <div class="space-y-4">
+            <div class="author-frame h-[420px] rounded-[28px] overflow-hidden">
+                <img src="https://drive.google.com/thumbnail?id=1Co6yw4xHAUAxiX7H_YUUQgoqIJminDkr&sz=w1000" alt="Fotografía del autor del proyecto">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="mini-purple-box p-4 rounded-2xl">
+                    <p class="text-xs uppercase tracking-[0.2em] text-purple-300 mb-2">Autor</p>
+                    <p class="text-sm text-gray-300">Néstor Gerardo Chicas Rivas</p>
+                </div>
+                <div class="mini-purple-box p-4 rounded-2xl">
+                    <p class="text-xs uppercase tracking-[0.2em] text-purple-300 mb-2">Proyecto</p>
+                    <p class="text-sm text-gray-300">Carrera Espacial</p>
+                </div>
+                <div class="mini-purple-box p-4 rounded-2xl">
+                    <p class="text-xs uppercase tracking-[0.2em] text-purple-300 mb-2">Enfoque</p>
+                    <p class="text-sm text-gray-300">Educativo y crítico</p>
+                </div>
+                <div class="mini-purple-box p-4 rounded-2xl">
+                    <p class="text-xs uppercase tracking-[0.2em] text-purple-300 mb-2">Tema</p>
+                    <p class="text-sm text-gray-300">Espacio y empresas privadas</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Tarjeta 1 -->
+            <div class="glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="showPage('apartado1')">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&q=80&w=800" alt="Vista de la Tierra" class="w-full h-full object-cover img-zoom">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                </div>
+                <div class="p-8">
+                    <span class="text-blue-500 text-xs font-bold uppercase tracking-widest">Capítulo 01</span>
+                    <h3 class="text-2xl font-bold mt-2 mb-4">¿Qué cambió en la carrera espacial?</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Del orgullo nacional a la eficiencia de mercado. Entiende la transición del modelo Apolo al modelo comercial.</p>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2 -->
+            <div class="glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="showPage('apartado2')">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&q=80&w=800" alt="Cohete SpaceX" class="w-full h-full object-cover img-zoom">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                </div>
+                <div class="p-8">
+                    <span class="text-blue-500 text-xs font-bold uppercase tracking-widest">Capítulo 02</span>
+                    <h3 class="text-2xl font-bold mt-2 mb-4">Empresas que ahora empujan el espacio</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">SpaceX, Blue Origin y Rocket Lab. Los nuevos gigantes que están abaratando el acceso al cosmos.</p>
+                </div>
+            </div>
+
+            <!-- Tarjeta 3 -->
+            <div class="glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="showPage('apartado3')">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&q=80&w=800" alt="Luna" class="w-full h-full object-cover img-zoom">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                </div>
+                <div class="p-8">
+                    <span class="text-blue-500 text-xs font-bold uppercase tracking-widest">Capítulo 03</span>
+                    <h3 class="text-2xl font-bold mt-2 mb-4">Artemis II y el nuevo momento espacial</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">El regreso del ser humano a la órbita lunar después de medio siglo. La misión que lo cambia todo.</p>
+                </div>
+            </div>
+
+            <!-- Tarjeta 4 -->
+            <div class="glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="showPage('apartado4')">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800" alt="Tierra nocturna" class="w-full h-full object-cover img-zoom">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                </div>
+                <div class="p-8">
+                    <span class="text-blue-500 text-xs font-bold uppercase tracking-widest">Capítulo 04</span>
+                    <h3 class="text-2xl font-bold mt-2 mb-4">Economía espacial y futuro comercial</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">De la manufactura orbital al turismo de lujo. ¿Cómo se monetizará el vacío exterior?</p>
+                </div>
+            </div>
+
+            <!-- Tarjeta 5 -->
+            <div class="glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="showPage('apartado5')">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" alt="Basura espacial" class="w-full h-full object-cover img-zoom">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                </div>
+                <div class="p-8">
+                    <span class="text-blue-500 text-xs font-bold uppercase tracking-widest">Capítulo 05</span>
+                    <h3 class="text-2xl font-bold mt-2 mb-4">Riesgos y dilemas del futuro</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Basura espacial, militarización y leyes obsoletas. El peligro de un espacio sin reglas.</p>
+                </div>
+            </div>
+
+            <!-- Tarjeta 6 -->
+            <div class="glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="showPage('apartado6')">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&q=80&w=800" alt="Galaxia" class="w-full h-full object-cover img-zoom">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                </div>
+                <div class="p-8">
+                    <span class="text-blue-500 text-xs font-bold uppercase tracking-widest">Capítulo 06</span>
+                    <h3 class="text-2xl font-bold mt-2 mb-4">¿Exploración o conquista comercial?</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Reflexión filosófica sobre nuestro destino. ¿Seguiremos siendo exploradores o clientes?</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- APARTADO 1: ¿Qué cambió? -->
+    <div id="page-apartado1" class="page-content pt-32 pb-20 px-6 max-w-5xl mx-auto">
+        <header class="mb-12">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">¿Qué cambió en la carrera espacial?</h2>
+            <p class="text-blue-500 text-lg italic italic">"No estamos yendo solo para visitar, estamos yendo para quedarnos."</p>
+        </header>
+        
+        <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?auto=format&fit=crop&q=80&w=1200" class="w-full rounded-3xl mb-12 border border-gray-800" alt="Lanzamiento Antiguo vs Moderno">
+
+        <div class="grid md:grid-cols-2 gap-12 text-gray-300 leading-relaxed">
+            <div class="space-y-6">
+                <h3 class="text-white text-2xl font-bold">El cambio de paradigma</h3>
+                <p>Durante la Guerra Fría, la carrera espacial era una cuestión de <strong>prestigio nacional</strong> y capacidad militar. Los presupuestos eran ilimitados y el riesgo se aceptaba en nombre de la victoria geopolítica. Sin embargo, tras el retiro de los transbordadores espaciales en 2011, surgió un vacío que el sector privado estaba listo para llenar.</p>
+                <div class="p-6 glass-card rounded-xl border-l-4 border-blue-500">
+                    <p class="text-sm font-medium">Según la NASA, el costo de poner un kilo en órbita ha caído de $54,500 (Transbordador) a menos de $3,000 gracias a la reutilización privada.</p>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <h3 class="text-white text-2xl font-bold">Del "Cost-Plus" al Precio Fijo</h3>
+                <p>Anteriormente, el gobierno pagaba a las empresas por sus gastos más un beneficio. Hoy, la NASA actúa como un <strong>cliente</strong> que compra servicios de transporte a precio fijo. Esto obliga a las empresas a ser innovadoras y eficientes para sobrevivir en el mercado.</p>
+                <p>Esta transición ha permitido que la NASA se enfoque en la exploración profunda (Marte, espacio lejano) mientras delega la órbita baja terrestre a la economía comercial.</p>
+            </div>
+        </div>
+
+        <div class="mt-16 flex justify-center">
+            <button onclick="showPage('referencias')" class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-blue-500 hover:text-white transition-colors">Ver referencias</button>
+        </div>
+    </div>
+
+    <!-- APARTADO 2: Empresas -->
+    <div id="page-apartado2" class="page-content pt-32 pb-20 px-6 max-w-5xl mx-auto">
+        <header class="mb-12">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">Empresas que ahora empujan el espacio</h2>
+            <p class="text-blue-500 text-lg italic italic">Los nuevos arquitectos del sistema solar.</p>
+        </header>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="glass-card p-8 rounded-2xl">
+                <h4 class="text-xl font-bold text-white mb-4">SpaceX</h4>
+                <p class="text-sm text-gray-400">Liderada por Elon Musk, revolucionó la industria con cohetes reutilizables (Falcon 9) y la ambiciosa Starship para colonizar Marte.</p>
+            </div>
+            <div class="glass-card p-8 rounded-2xl">
+                <h4 class="text-xl font-bold text-white mb-4">Blue Origin</h4>
+                <p class="text-sm text-gray-400">La visión de Jeff Bezos de mover la industria pesada fuera de la Tierra para proteger nuestro planeta. Foco en aterrizadores lunares.</p>
+            </div>
+            <div class="glass-card p-8 rounded-2xl">
+                <h4 class="text-xl font-bold text-white mb-4">Rocket Lab</h4>
+                <p class="text-sm text-gray-400">Especialistas en satélites pequeños. Han demostrado que el espacio no es solo para cohetes gigantes, sino para logística precisa.</p>
+            </div>
+        </div>
+
+        <img src="https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?auto=format&fit=crop&q=80&w=1200" class="w-full rounded-3xl mb-12 border border-gray-800" alt="Tecnología Cohete">
+
+        <div class="prose prose-invert max-w-none text-gray-300">
+            <p class="mb-6">Estas empresas no operan solas; forman un ecosistema complejo. Mientras que la <strong>NASA</strong> pone las reglas y la certificación de seguridad, empresas como <strong>SpaceX</strong> ejecutan el transporte de astronautas a la Estación Espacial Internacional (ISS).</p>
+            <p>La entrada de capital de riesgo y la competencia agresiva han permitido avances que antes tardaban décadas en concretarse. Estamos viendo ciclos de desarrollo de software aplicados a la ingeniería aeroespacial, donde fallar rápido y aprender es parte del proceso.</p>
+        </div>
+
+        <div class="mt-16 flex justify-center">
+            <button onclick="showPage('referencias')" class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-blue-500 hover:text-white transition-colors">Ver referencias</button>
+        </div>
+    </div>
+
+    <!-- APARTADO 3: Artemis II -->
+    <div id="page-apartado3" class="page-content pt-32 pb-20 px-6 max-w-5xl mx-auto">
+        <header class="mb-12">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">Artemis II: El Nuevo Momento</h2>
+            <p class="text-blue-500 text-lg">La humanidad regresa a las cercanías de la Luna.</p>
+        </header>
+
+        <div class="flex flex-col md:flex-row gap-12 items-center mb-16">
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1454789548928-9efd52dc4031?auto=format&fit=crop&q=80&w=800" class="rounded-3xl shadow-2xl" alt="Astronauta">
+            </div>
+            <div class="md:w-1/2 space-y-6 text-gray-300">
+                <h3 class="text-2xl font-bold text-white uppercase tracking-tighter">Misión Artemis II</h3>
+                <p>A diferencia de las misiones Apolo, Artemis busca la <strong>sostenibilidad</strong>. Artemis II llevará a cuatro astronautas (incluyendo a la primera mujer y al primer hombre de color en una misión lunar) a rodear la Luna para probar los sistemas de soporte vital de la cápsula Orion.</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>Nave: Orion (desarrollada por Lockheed Martin y ESA)</li>
+                    <li>Cohete: SLS (Space Launch System)</li>
+                    <li>Objetivo: Validar la seguridad para el aterrizaje de Artemis III.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-blue-900 bg-opacity-20 p-10 rounded-3xl border border-blue-500/30">
+            <h4 class="text-xl font-bold mb-4">¿Por qué es diferente esta vez?</h4>
+            <p class="text-gray-300">Esta misión es el preludio al <strong>Lunar Gateway</strong>, una estación espacial en órbita lunar que servirá como puerto de transferencia. No es una visita rápida; es la construcción de una infraestructura permanente que permitirá el salto eventual hacia Marte.</p>
+        </div>
+
+        <div class="mt-16 flex justify-center">
+            <button onclick="showPage('referencias')" class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-blue-500 hover:text-white transition-colors">Ver referencias</button>
+        </div>
+    </div>
+
+    <!-- APARTADO 4: Economía -->
+    <div id="page-apartado4" class="page-content pt-32 pb-20 px-6 max-w-5xl mx-auto">
+        <header class="mb-12 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">Economía Espacial</h2>
+            <p class="text-blue-400 text-xl">Un mercado proyectado en $1 Trillón para 2040.</p>
+        </header>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-16">
+            <div class="p-8 glass-card rounded-3xl">
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/></svg>
+                    Telecomunicaciones
+                </h3>
+                <p class="text-gray-400">Proyectos como <strong>Starlink</strong> están demostrando que el mayor negocio actual no está en la Luna, sino en dar internet a la Tierra desde la órbita baja. Miles de satélites creando una red global.</p>
+            </div>
+            <div class="p-8 glass-card rounded-3xl">
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+                    Turismo de Lujo
+                </h3>
+                <p class="text-gray-400">Blue Origin y Virgin Galactic ya ofrecen vuelos suborbitales. Pronto, empresas como Axiom Space construirán módulos comerciales para que civiles vivan en órbita por semanas.</p>
+            </div>
+        </div>
+
+        <div class="prose prose-invert max-w-none text-gray-300">
+            <h3 class="text-white text-2xl font-bold mb-4">Manufactura en Microgravedad</h3>
+            <p>El espacio ofrece condiciones únicas para crear fibra óptica perfecta, órganos artificiales mediante bio-impresión 3D y cristales para medicamentos que son imposibles de producir bajo la gravedad terrestre. El espacio se convertirá en la <strong>próxima zona industrial</strong> del mundo.</p>
+        </div>
+
+        <div class="mt-16 flex justify-center">
+            <button onclick="showPage('referencias')" class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-blue-500 hover:text-white transition-colors">Ver referencias</button>
+        </div>
+    </div>
+
+    <!-- APARTADO 5: Riesgos -->
+    <div id="page-apartado5" class="page-content pt-32 pb-20 px-6 max-w-5xl mx-auto">
+        <header class="mb-12">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">Riesgos y dilemas</h2>
+            <p class="text-red-500 text-lg uppercase tracking-widest font-bold">Protocolo de Emergencia Orbital</p>
+        </header>
+
+        <img src="https://images.unsplash.com/photo-1446941611757-91d2c3bd3d45?auto=format&fit=crop&q=80&w=1200" class="w-full h-80 object-cover rounded-3xl mb-12 grayscale" alt="Abismo Espacial">
+
+        <div class="grid md:grid-cols-2 gap-12">
+            <div class="space-y-6">
+                <h3 class="text-white text-2xl font-bold">El Síndrome de Kessler</h3>
+                <p class="text-gray-400">A medida que lanzamos más satélites, el riesgo de colisiones aumenta. Un choque puede generar miles de fragmentos que, a su vez, provocan más choques. Podríamos quedar atrapados en la Tierra si la órbita se vuelve demasiado peligrosa.</p>
+            </div>
+            <div class="space-y-6">
+                <h3 class="text-white text-2xl font-bold">La brecha legal</h3>
+                <p class="text-gray-400">El Tratado del Espacio Exterior de 1967 dice que nadie puede ser dueño de un cuerpo celeste. Pero, ¿qué pasa con los minerales extraídos por una empresa? Las leyes no están preparadas para la propiedad privada fuera de la Tierra.</p>
+            </div>
+        </div>
+
+        <div class="mt-12 bg-gray-900 p-8 rounded-2xl border border-red-900/50">
+            <p class="text-sm text-gray-300 italic">"Estamos enviando tecnología del siglo XXI al espacio bajo reglas del siglo XX, lo que crea un vacío de responsabilidad preocupante." — Análisis basado en informes de la UNOOSA.</p>
+        </div>
+
+        <div class="mt-16 flex justify-center">
+            <button onclick="showPage('referencias')" class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-blue-500 hover:text-white transition-colors">Ver referencias</button>
+        </div>
+    </div>
+
+    <!-- APARTADO 6: Reflexión -->
+    <div id="page-apartado6" class="page-content pt-32 pb-20 px-6 max-w-5xl mx-auto text-center">
+        <h2 class="text-4xl md:text-7xl font-bold mb-10">¿Exploración o conquista comercial?</h2>
+        
+        <div class="max-w-3xl mx-auto space-y-8 text-lg text-gray-300">
+            <p>Imagina mirar hacia el cielo nocturno y, en lugar de ver la Vía Láctea, ver un desfile de satélites brillantes formando el logo de una corporación. Esta visión, que parece sacada de <strong>WALL·E</strong>, donde la Tierra y el espacio son propiedad de la mega-corporación <em>Buy n Large</em>, es hoy un debate ético real.</p>
+            
+            <div class="my-12 p-1 border-t border-b border-gray-800 py-10">
+                <span class="text-6xl font-serif text-blue-500">"</span>
+                <p class="text-2xl font-light italic text-white px-10">¿Estamos expandiendo la civilización humana o simplemente estamos exportando nuestro consumismo al vacío eterno?</p>
+                <span class="text-6xl font-serif text-blue-500 float-right mt-[-30px]">"</span>
+            </div>
+
+            <p>La exploración espacial siempre ha sido un símbolo de curiosidad pura. Sin embargo, la entrada de marcas y publicidad en órbita plantea la cuestión de si el cielo es un <strong>bien común de la humanidad</strong> o un espacio publicitario más. La transición de ser "exploradores" a ser "conquistadores comerciales" definirá nuestro legado en el siglo XXI.</p>
+        </div>
+
+        <div class="mt-16 flex justify-center">
+            <button onclick="showPage('referencias')" class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-blue-500 hover:text-white transition-colors">Ver referencias</button>
+        </div>
+    </div>
+
+    <!-- PÁGINA DE REFERENCIAS -->
+    <div id="page-referencias" class="page-content pt-32 pb-20 px-6 max-w-4xl mx-auto">
+        <h2 class="text-4xl font-bold mb-10 text-center uppercase tracking-widest border-b border-blue-500 pb-4">Fuentes y Referencias Bibliográficas</h2>
+        
+        <div class="space-y-8">
+            <div class="glass-card p-6 rounded-xl">
+                <h4 class="font-bold text-blue-500 mb-2">NASA (National Aeronautics and Space Administration)</h4>
+                <p class="text-sm text-gray-400 mb-2">Información sobre misiones Artemis, programa Commercial Crew y costos de lanzamiento.</p>
+                <a href="https://www.nasa.gov" target="_blank" class="text-xs text-white underline hover:text-blue-400">nasa.gov</a>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <h4 class="font-bold text-blue-500 mb-2">ESA (European Space Agency)</h4>
+                <p class="text-sm text-gray-400 mb-2">Contribución europea al Service Module de la Orion y datos sobre basura espacial.</p>
+                <a href="https://www.esa.int" target="_blank" class="text-xs text-white underline hover:text-blue-400">esa.int</a>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <h4 class="font-bold text-blue-500 mb-2">UNOOSA (United Nations Office for Outer Space Affairs)</h4>
+                <p class="text-sm text-gray-400 mb-2">Tratados internacionales y regulación del uso pacífico del espacio ultraterrestre.</p>
+                <a href="https://www.unoosa.org" target="_blank" class="text-xs text-white underline hover:text-blue-400">unoosa.org</a>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <h4 class="font-bold text-blue-500 mb-2">OECD Space Forum</h4>
+                <p class="text-sm text-gray-400 mb-2">Reportes sobre la economía espacial global y proyecciones de mercado.</p>
+                <a href="https://www.oecd.org/en/topics/space.html" target="_blank" class="text-xs text-white underline hover:text-blue-400">oecd.org</a>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <h4 class="font-bold text-blue-500 mb-2">FAA (Federal Aviation Administration)</h4>
+                <p class="text-sm text-gray-400 mb-2">Regulaciones de transporte espacial comercial y seguridad en lanzamientos.</p>
+                <a href="https://www.faa.gov/space" target="_blank" class="text-xs text-white underline hover:text-blue-400">faa.gov</a>
+            </div>
+        </div>
+
+        <div class="mt-16 flex justify-center">
+            <button onclick="showPage('home')" class="border border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-black transition-all">Regresar al Inicio</button>
+        </div>
+    </div>
+<section class="max-w-6xl mx-auto px-6 mb-16">
+        <div class="purple-card rounded-3xl p-8 md:p-10 text-center">
+            <p class="text-purple-300 text-xs uppercase tracking-[0.3em] mb-3">Cierre del recorrido</p>
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-4 purple-glow">Más allá del lanzamiento, comienza la pregunta</h2>
+            <p class="text-gray-300 max-w-3xl mx-auto leading-relaxed mb-6">
+                El regreso de la carrera espacial no solo habla de cohetes, órbitas y tecnología. También obliga a pensar quién impulsará el futuro del espacio,
+                bajo qué reglas y con qué intereses. La exploración del mañana podría ser uno de los mayores logros de la humanidad,
+                o también una extensión de sus desigualdades.
+            </p>
+            <div class="grid md:grid-cols-3 gap-4 text-left mt-8">
+                <div class="intro-fragment">
+                    <h3 class="text-white font-bold mb-2">Explorar</h3>
+                    <p class="text-sm text-gray-400">Comprender cómo cambió la lógica espacial frente a la del siglo XX.</p>
+                </div>
+                <div class="intro-fragment">
+                    <h3 class="text-white font-bold mb-2">Analizar</h3>
+                    <p class="text-sm text-gray-400">Observar el papel de las empresas privadas y la economía orbital.</p>
+                </div>
+                <div class="intro-fragment">
+                    <h3 class="text-white font-bold mb-2">Reflexionar</h3>
+                    <p class="text-sm text-gray-400">Preguntarse si el espacio seguirá siendo un bien común o un territorio comercial.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="py-12 border-t border-gray-900 mt-20 text-center px-6">
+    <p class="text-gray-500 text-xs tracking-[0.25em] uppercase mb-3">Proyecto Educativo Digital — 2026</p>
+    <p class="text-gray-300 text-sm">
+        Esta página fue creada por un no astronauta: <span class="text-purple-300 font-semibold">Néstor Gerardo Chicas Rivas</span>
+    </p>
+</footer>
+
+    <script>
+        function showPage(pageId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.page-content');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Mostrar la sección seleccionada
+            const activePage = document.getElementById('page-' + pageId);
+            activePage.classList.add('active');
+            activePage.classList.add('page-transition');
+
+            // Controlar visibilidad del botón de atrás
+            const backBtn = document.getElementById('back-home-btn');
+            if (pageId === 'home') {
+                backBtn.classList.add('hidden');
+            } else {
+                backBtn.classList.remove('hidden');
+            }
+
+            // Scroll al inicio
+            window.scrollTo(0, 0);
+        }
+
+        // Simular navegación si hay hash en la URL (opcional)
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                showPage(hash);
+            }
+        });
+    </script>
+</body>
+</html>
